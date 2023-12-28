@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+<title>Movie Form</title>
+<body>
+    <form action="listmovies.php" method="post">
+        <br>
+        <button class="btn" name="list" value="list-movies" type="submit"><strong>List Movies</strong></button>
+    </form>
+
+    <form action="insertmovie.php" method="post">
+        <br><strong>ADD A NEW MOVIE</strong><br><br>
+        Movie Name: <label>
+            <input type="text" name="Name">
+        </label> <br> <br>
+        Genre: <label>
+            <input type="text" name="Genre">
+        </label> <br> <br>
+        Studio: <label>
+            <input type="text" name="Studio">
+        </label> <br> <br>
+        Audience Rating: <label>
+            <input type="text" name="Rating">
+        </label> <br> <br>
+        Release Year: <label>
+            <input type="text" name="ReleaseYear">
+        </label> <br> <br>
+        <div>
+            <button class="btn" name="add" value="add-movie" type="submit"><strong>Add Movie</strong></button>
+            <button class="btn" name="update" value="update-movie" type="submit"><strong>Update Movie</strong></button>
+        </div>
+    </form>
+
+    <form action="deletemovie.php" method="post">
+        <p>
+        <br><strong>DELETE A MOVIE</strong><br><br>
+        Movie Name: <label>
+            <input type="text" name="Name">
+        </label> <br> <br>
+        <button class="btn" name="delete" value="delete-movie" type="submit"><strong>Delete Movie</strong></button>
+    </form>
+</body>
+</html>
