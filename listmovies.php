@@ -11,7 +11,7 @@ if (!$conn) {
 }
 
 // Set up SQL query that selects data
-$get_sql = "SELECT MovieId, MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear FROM MovieTable";
+$get_sql = "SELECT MovieId, MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear FROM Movies";
 
 // Run the query and save the result into $result
 $result = mysqli_query($conn, $get_sql);

@@ -18,22 +18,37 @@ $studio = $_POST["Studio"];
 $rating = $_POST["Rating"];
 $release_year = $_POST["ReleaseYear"];
 
-// Set up SQL query that selects data
-$get_sql = "SELECT MovieId, MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear FROM Movies";
+$get_single_movie = "SELECT MovieId from Movies WHERE MovieName = '$name' LIMIT 1";
+
+function listMovies($conn) {
+    // Get the list of all movies
+    $get_sql = "SELECT MovieId, MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear FROM Movies";
+    $result = mysqli_query($conn, $get_sql);
+    if (mysqli_num_rows($result) > 0) {
+        echo "<strong><br>MOVIE LIST:</strong><br><br>";
+        echo "<table border=2><tr><th>Movie Name</th><th>Genre</th><th>Lead Studio</th><th>Rating</th><th>Year</th></tr>";
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr><td>" . $row["MovieName"] . "</td><td>" . $row["Genre"] . "</td><td>" . $row["LeadStudio"] . "</td><td>" . $row["AudienceRating"] . "</td><td>" . $row["ReleaseYear"] . "</td></tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "<br><strong>There are no movies to show. Try adding one.</strong><br>";
+    }
+
+    echo "<br><button onclick='history.back()'>Back</button>";
+}
 
 if ($button_name == 'add-movie') {
+    $movie_exists = mysqli_query($conn, $get_single_movie);
+    if (mysqli_num_rows($movie_exists) == 1) {
+        echo "<br><strong>$name already exists in the movie list.</strong><br>";
+        listMovies($conn);
+        return;
+    }
+
     if (!$name or !$genre or !$studio or !$rating or !$release_year) {
         echo "<br><strong>All fields are required to add a new movie.</strong><br>";
     } else {
-        $result = mysqli_query($conn, $get_sql);
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($row["MovieName"] == $name) {
-                echo "<br><strong>$name already exists in the movie list.</strong><br>";
-                echo "<br><button onclick='history.back()'>Back</button>";
-                return;
-            }
-        }
-
         // Set up SQL query to insert data
         $insert_sql = "INSERT INTO Movies (MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear) VALUES ('$name', '$genre', '$studio', $rating, $release_year)";
 
@@ -46,14 +61,12 @@ if ($button_name == 'add-movie') {
     }
 } else {
     // button must be an update
-    // Run the get query and save the result into $result
     if ($name and (!$genre and !$studio and !$rating and !$release_year)) {
         echo "<br><strong>Genre, Studio, Rating, and/or Release Year are required to update a movie.</strong><br>";
    } else if (!$name) {
         echo "<br><strong>Name is a required field to update a movie.</strong><br>";
     } else {
-        $get_single = "SELECT * FROM Movies WHERE MovieName = '$name'";
-        $result = mysqli_query($conn, $get_single);
+        $result = mysqli_query($conn, $get_single_movie);
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $genre = $genre ?: $row["Genre"];
@@ -69,22 +82,7 @@ if ($button_name == 'add-movie') {
             }
         }
     }
+    listMovies($conn);
 }
-
-// Run the get query and save the result into $result
-$result = mysqli_query($conn, $get_sql);
-
-if (mysqli_num_rows($result) > 0) {
-    echo "<strong><br>MOVIE LIST:</strong><br><br>";
-    echo "<table border=2><tr><th>Movie Name</th><th>Genre</th><th>Lead Studio</th><th>Rating</th><th>Year</th></tr>";
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<tr><td>" . $row["MovieName"] . "</td><td>" . $row["Genre"] . "</td><td>" . $row["LeadStudio"] . "</td><td>" . $row["AudienceRating"] . "</td><td>" . $row["ReleaseYear"] . "</td></tr>";
-    }
-    echo "</table>";
-} else {
-    echo "<br><strong>There are no movies to show. Try adding one.</strong><br>";
-}
-
-echo "<br><button onclick='history.back()'>Back</button>";
 
 $conn->close();
