@@ -9,7 +9,7 @@ One resource is [Installing an Ubuntu 20.02 LAMP stack](https://www.digitalocean
 
 To create the database and table, run
 
-`mysql -u movieuser -p mydatabase < create_movie_table.sql`
+`mysql -u movieuser -p moviedb < create_movie_table.sql`
 
 ### Helpful MySQL Commands
 
