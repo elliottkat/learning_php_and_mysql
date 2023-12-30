@@ -1,7 +1,6 @@
 <?php
 
 function listMovies($conn) {
-    // Get the list of all movies
     $get_sql = "SELECT MovieId, MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear FROM Movies";
     $result = mysqli_query($conn, $get_sql);
     if (mysqli_num_rows($result) > 0) {
