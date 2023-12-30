@@ -3,7 +3,7 @@ require __DIR__ . '/functions.php';
 
 $server = "localhost";
 $user = "movieuser";
-$password = "movieuserpw";
+$password = "movieuserdb";
 $dbname = "moviedb";
 
 $conn = mysqli_connect($server, $user, $password, $dbname);
@@ -32,11 +32,11 @@ if ($button_name == 'add-movie') {
 
     if (!$name or !$genre or !$studio or !$rating or !$release_year) {
         echo "<br><strong>All fields are required to add a new movie.</strong><br>";
+    } else if (mysqli_num_rows($movie_exists) == 1) {
+        echo "<br><strong>$name already exists in the movie list.</strong><br>";
     } else {
-        // Set up SQL query to insert data
         $insert_sql = "INSERT INTO Movies (MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear) VALUES ('$name', '$genre', '$studio', $rating, $release_year)";
         $insert_movie = mysqli_query($conn, $insert_sql);
-        // Run the insert query
         if (mysqli_affected_rows($conn) > 0) {
             echo "<br><strong>$name has been added.</strong><br>";
         } else if (mysqli_error($conn)) {
