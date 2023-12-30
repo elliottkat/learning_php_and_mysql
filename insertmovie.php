@@ -35,10 +35,12 @@ if ($button_name == 'add-movie') {
     } else {
         // Set up SQL query to insert data
         $insert_sql = "INSERT INTO Movies (MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear) VALUES ('$name', '$genre', '$studio', $rating, $release_year)";
-
+        $insert_movie = mysqli_query($conn, $insert_sql);
         // Run the insert query
-        if (mysqli_query($conn, $insert_sql)) {
+        if (mysqli_affected_rows($conn) > 0) {
             echo "<br><strong>$name has been added.</strong><br>";
+        } else if (mysqli_error($conn)) {
+            echo "<br><strong>Error inserting movie: " . mysqli_error($conn) . "</strong><br>";
         } else {
             echo "Error: " . $insert_sql . "<br>" . mysqli_error($conn);
         }
@@ -51,7 +53,7 @@ if ($button_name == 'add-movie') {
         echo "<br><strong>Name is a required field to update a movie.</strong><br>";
     } else {
         $result = mysqli_query($conn, $get_single_movie);
-        if (mysqli_num_rows($result) > 0) {
+        if (mysqli_affected_rows($conn) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $genre = $genre ?: $row["Genre"];
                 $studio = $studio ?: $row["LeadStudio"];
@@ -60,6 +62,8 @@ if ($button_name == 'add-movie') {
                 $update_sql = "UPDATE Movies SET Genre='$genre', LeadStudio='$studio', AudienceRating='$rating', ReleaseYear='$release_year' WHERE MovieName = '$name'";
                 if (mysqli_query($conn, $update_sql)) {
                     echo "<br><strong>$name has been updated.</strong><br>";
+                } else if (mysqli_error($conn)) {
+                    echo "<br><strong>Error updating movie: " . mysqli_error($conn) . "</strong><br>";
                 } else {
                     echo "Error: " . $update_sql . "<br>" . mysqli_error($conn);
                 }
