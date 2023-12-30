@@ -20,11 +20,9 @@ if (!$name) {
     // Run the query to get the movie and then delete it
     $select_result = mysqli_query($conn, $select_sql);
     if (mysqli_num_rows($select_result) > 0) {
-        while ($row = mysqli_fetch_assoc($select_result)) {
-            $drop_sql = "DELETE FROM Movies WHERE MovieName = '" . $row["MovieName"] . "'";
-            mysqli_query($conn, $drop_sql);
-            echo "<br><strong>$name has been deleted.</strong><br>";
-        }
+        $delete_sql = "DELETE FROM Movies WHERE MovieName = '$name'";
+        mysqli_query($conn, $delete_sql);
+        echo "<br><strong>$name has been deleted.</strong><br>";
     } else {
         echo "<br><strong>$name does not exist in the list of movies.</strong><br>";
     }

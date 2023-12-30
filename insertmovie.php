@@ -82,7 +82,7 @@ if ($button_name == 'add-movie') {
             }
         }
     }
-    listMovies($conn);
 }
+listMovies($conn);
 
 $conn->close();
