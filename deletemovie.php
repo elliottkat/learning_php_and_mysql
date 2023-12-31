@@ -12,18 +12,18 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$name = $_POST["Name"];
+$name = $_POST["name"];
 
 if (!$name) {
-    echo "<br><strong>Name is required in order to delete a movie.</strong><br>";
+    echo "<br><p style='font-family: Arial, serif; font-size: 15px; padding-left: 20px; padding-top: 20px'><strong>Name is required in order to delete a movie.</strong><br>";
 } else {
     $delete_sql = "DELETE FROM Movies WHERE MovieName = '$name'";
     if (mysqli_query($conn, $delete_sql) && mysqli_affected_rows($conn) > 0) {
-        echo "<br><strong>$name has been deleted.</strong><br>";
+        echo "<p style='font-family: Arial, serif; font-size: 15px; padding-left: 20px; padding-top: 20px'><strong>$name has been deleted.</strong><br>";
     } else if (mysqli_error($conn)) {
         echo "Error deleting movie: " . mysqli_error($conn);
     } else {
-        echo "<br><strong>$name does not exist in the list of movies.</strong><br>";
+        echo "<p style='font-family: Arial, serif; font-size: 15px; padding-left: 20px; padding-top: 20px'><strong>$name does not exist in the list of movies.</strong><br>";
     }
 }
 
