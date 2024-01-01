@@ -7,7 +7,6 @@
     td {
         height: 40px;
         padding-left: 15px;
-        border-bottom: black;
     }
     p {
         font-family: Arial, serif;
