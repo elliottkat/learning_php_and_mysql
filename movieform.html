@@ -1,42 +1,81 @@
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Movie Form</title>
-<body>
-    <form action="listmovies.php" method="post">
-        <br>
-        <button class="btn" name="list" value="list-movies" type="submit"><strong>List Movies</strong></button>
-    </form>
+    <head>
+        <style>
+            p {
+                font-family: Arial, serif;
+                font-size: 15px
+            }
+            input[type=text] {
+                width: 40%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 3px solid #b3e6ff;
+                border-radius: 4px;
+                font-family: "Arial", serif;
+                font-size: 15px;
+            }
+            button {
+                background-color: #b3e6ff;
+                border: none;
+                padding: 10px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                font-family: "Arial", serif;
+                border-radius: 3px;
+            }
+            button:hover {
+                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+            }
+        </style>
+        <title>Movie Form</title>
+    </head>
+    <body marginwidth="20px">
+        <form action="listmovies.php" method="post">
+            <br>
+            <button name="list" value="list-movies" type="submit"><strong>List Movies</strong></button>
+        </form>
 
-    <form action="insertmovie.php" method="post">
-        <br><strong>ADD A NEW MOVIE</strong><br><br>
-        Movie Name: <label>
-            <input type="text" name="Name">
-        </label> <br> <br>
-        Genre: <label>
-            <input type="text" name="Genre">
-        </label> <br> <br>
-        Studio: <label>
-            <input type="text" name="Studio">
-        </label> <br> <br>
-        Audience Rating: <label>
-            <input type="text" name="Rating">
-        </label> <br> <br>
-        Release Year: <label>
-            <input type="text" name="ReleaseYear">
-        </label> <br> <br>
-        <div>
-            <button class="btn" name="add" value="add-movie" type="submit"><strong>Add Movie</strong></button>
-            <button class="btn" name="update" value="update-movie" type="submit"><strong>Update Movie</strong></button>
-        </div>
-    </form>
+        <form action="insertupdatemovie.php" method="post">
+            <br><br>
+            <p><strong>ADD OR UPDATE A MOVIE</strong><br><br>
+            <label for="name">Movie Name:</label>
+            <br>
+            <input type="text" id="name" name="name">
+            <br>
+            <label for="genre">Genre:</label>
+            <br>
+            <input type="text" id="genre" name="genre">
+            <br>
+            <label for="studio">Studio:</label>
+            <br>
+            <input type="text" id="studio" name="studio">
+            <br>
+            <label for="rating">Audience Rating:</label>
+            <br>
+            <input type="text" id="rating" name="rating">
+            <br>
+            <label for="ryear">Release Year:</label>
+            <br>
+            <input type="text" id="ryear" name="ryear">
+            <br>
+            <div>
+                <button name="add" value="add-movie" type="submit"><strong>Add Movie</strong></button>
+                <button name="update" value="update-movie" type="submit"><strong>Update Movie</strong></button>
+            </div>
+        </form>
 
-    <form action="deletemovie.php" method="post">
-        <p>
-        <br><strong>DELETE A MOVIE</strong><br><br>
-        Movie Name: <label>
-            <input type="text" name="Name">
-        </label> <br> <br>
-        <button class="btn" name="delete" value="delete-movie" type="submit"><strong>Delete Movie</strong></button>
-    </form>
-</body>
+        <form action="deletemovie.php" method="post">
+            <br><br>
+            <p><strong>DELETE A MOVIE</strong><br><br>
+            <label for="dname">Movie Name:</label>
+            <br>
+            <input type="text" id="dname" name="name">
+            <p>
+            <button name="delete" value="delete-movie" type="submit"><strong>Delete Movie</strong></button>
+        </form>
+    </body>
 </html>
