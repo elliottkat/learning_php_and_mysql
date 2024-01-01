@@ -12,7 +12,8 @@
     p {
         font-family: Arial, serif;
         font-size: 15px;
-        padding-left: 20px
+        padding-left: 20px;
+        color: red;
     }
     button {
         background-color: #b3e6ff;
@@ -70,7 +71,7 @@ if ($button_name == 'add-movie') {
         $insert_sql = "INSERT INTO Movies (MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear) VALUES ('$name', '$genre', '$studio', $rating, $release_year)";
         $insert_movie = mysqli_query($conn, $insert_sql);
         if (mysqli_affected_rows($conn) > 0) {
-            echo "<br><p><strong>$name has been added.</strong><br>";
+            echo "<br><p style='color: black'><strong>$name has been added.</strong><br>";
         } else if (mysqli_error($conn)) {
             echo "<br><p><strong>Error inserting movie: " . mysqli_error($conn) . "</strong><br>";
         } else {
@@ -93,13 +94,15 @@ if ($button_name == 'add-movie') {
                 $release_year = $release_year ?: $row["ReleaseYear"];
                 $update_sql = "UPDATE Movies SET Genre='$genre', LeadStudio='$studio', AudienceRating='$rating', ReleaseYear='$release_year' WHERE MovieName = '$name'";
                 if (mysqli_query($conn, $update_sql)) {
-                    echo "<br><p><strong>$name has been updated.</strong><br>";
+                    echo "<br><p style='color: black'><strong>$name has been updated.</strong><br>";
                 } else if (mysqli_error($conn)) {
                     echo "<br><p><strong>Error updating movie: " . mysqli_error($conn) . "</strong><br>";
                 } else {
                     echo "<br><p><strong>Error: " . $update_sql . mysqli_error($conn);
                 }
             }
+        } else {
+            echo "<br><p><strong>$name does not exist in the movie list.</strong><br>";
         }
     }
 }

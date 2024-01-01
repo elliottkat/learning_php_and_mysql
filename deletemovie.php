@@ -1,3 +1,13 @@
+<style>
+    p {
+        font-family: Arial, serif;
+        font-size: 15px;
+        padding-left: 20px;
+        padding-top: 20px;
+        color: red;
+    }
+</style>
+
 <?php
 require __DIR__ . '/functions.php';
 
@@ -15,15 +25,15 @@ if (!$conn) {
 $name = $_POST["name"];
 
 if (!$name) {
-    echo "<br><p style='font-family: Arial, serif; font-size: 15px; padding-left: 20px; padding-top: 20px'><strong>Name is required in order to delete a movie.</strong><br>";
+    echo "<br><p><strong>Name is required in order to delete a movie.</strong><br>";
 } else {
     $delete_sql = "DELETE FROM Movies WHERE MovieName = '$name'";
     if (mysqli_query($conn, $delete_sql) && mysqli_affected_rows($conn) > 0) {
-        echo "<p style='font-family: Arial, serif; font-size: 15px; padding-left: 20px; padding-top: 20px'><strong>$name has been deleted.</strong><br>";
+        echo "<p style='color: black'><strong>$name has been deleted.</strong><br>";
     } else if (mysqli_error($conn)) {
-        echo "Error deleting movie: " . mysqli_error($conn);
+        echo "<p><strong>Error deleting movie: " . mysqli_error($conn) . "</strong>";
     } else {
-        echo "<p style='font-family: Arial, serif; font-size: 15px; padding-left: 20px; padding-top: 20px'><strong>$name does not exist in the list of movies.</strong><br>";
+        echo "<p><strong>$name does not exist in the list of movies.</strong><br>";
     }
 }
 
