@@ -23,7 +23,7 @@ function listMovies($conn) {
     if (mysqli_num_rows($result) > 0) {
         echo "<p style='font-family: Arial, serif; font-size: 15px; padding: 20px'>";
         echo "<table style='border: 3px solid black; width: 35%; border-radius: 3px'><tr style='align-content: center; background-color: #b3e6ff'>
-                <th height='50px'>Movie Name</th><th>genre</th><th>Lead Studio</th><th>Rating</th><th>Year</th></tr>";
+                <th height='50px'>Movie Name</th><th>genre</th><th>Studio</th><th>Rating</th><th>Year</th></tr>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr><td height='40px' style='padding-left: 15px'>" . $row["name"] .
                 "</td><td style='padding-left: 15px'>" . $row["genre"] . "</td><td style='padding-left: 15px'>" .
