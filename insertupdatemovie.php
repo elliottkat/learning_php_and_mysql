@@ -52,7 +52,7 @@ $studio = $_POST["studio"];
 $rating = $_POST["rating"];
 $release_year = $_POST["ryear"];
 
-$get_single_movie = "SELECT * from Movies WHERE MovieName = '$name' LIMIT 1";
+$get_single_movie = "SELECT * from movies WHERE name = '$name' LIMIT 1";
 
 if ($button_name == 'add-movie') {
     $movie_exists = mysqli_query($conn, $get_single_movie);
@@ -67,7 +67,7 @@ if ($button_name == 'add-movie') {
     } else if (mysqli_num_rows($movie_exists) == 1) {
         echo "<br><p><strong>$name already exists in the movie list.</strong><br>";
     } else {
-        $insert_sql = "INSERT INTO Movies (MovieName, Genre, LeadStudio, AudienceRating, ReleaseYear) VALUES ('$name', '$genre', '$studio', $rating, $release_year)";
+        $insert_sql = "INSERT INTO movies (name, genre, studio, audience_rating, release_year) VALUES ('$name', '$genre', '$studio', $rating, $release_year)";
         $insert_movie = mysqli_query($conn, $insert_sql);
         if (mysqli_affected_rows($conn) > 0) {
             echo "<br><p style='color: black'><strong>$name has been added.</strong><br>";
@@ -80,18 +80,18 @@ if ($button_name == 'add-movie') {
 } else {
     // button must be an update
     if ($name and (!$genre and !$studio and !$rating and !$release_year)) {
-        echo "<br><p><strong>Genre, Studio, Rating, and/or Release Year are required to update a movie.</strong><br>";
+        echo "<br><p><strong>genre, Studio, Rating, and/or Release Year are required to update a movie.</strong><br>";
    } else if (!$name) {
         echo "<br><p><strong>Name is a required field to update a movie.</strong><br>";
     } else {
         $result = mysqli_query($conn, $get_single_movie);
         if (mysqli_affected_rows($conn) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-                $genre = $genre ?: $row["Genre"];
-                $studio = $studio ?: $row["LeadStudio"];
-                $rating = $rating ?: $row["AudienceRating"];
-                $release_year = $release_year ?: $row["ReleaseYear"];
-                $update_sql = "UPDATE Movies SET Genre='$genre', LeadStudio='$studio', AudienceRating='$rating', ReleaseYear='$release_year' WHERE MovieName = '$name'";
+                $genre = $genre ?: $row["genre"];
+                $studio = $studio ?: $row["studio"];
+                $rating = $rating ?: $row["audience_rating"];
+                $release_year = $release_year ?: $row["release_year"];
+                $update_sql = "UPDATE movies SET genre='$genre', studio='$studio', audience_rating='$rating', release_year='$release_year' WHERE name = '$name'";
                 if (mysqli_query($conn, $update_sql)) {
                     echo "<br><p style='color: black'><strong>$name has been updated.</strong><br>";
                 } else if (mysqli_error($conn)) {

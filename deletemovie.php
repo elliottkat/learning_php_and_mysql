@@ -27,7 +27,7 @@ $name = $_POST["name"];
 if (!$name) {
     echo "<br><p><strong>Name is required in order to delete a movie.</strong><br>";
 } else {
-    $delete_sql = "DELETE FROM Movies WHERE MovieName = '$name'";
+    $delete_sql = "DELETE FROM movies WHERE name = '$name'";
     if (mysqli_query($conn, $delete_sql) && mysqli_affected_rows($conn) > 0) {
         echo "<p style='color: black'><strong>$name has been deleted.</strong><br>";
     } else if (mysqli_error($conn)) {
